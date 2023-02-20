@@ -6,7 +6,7 @@ gmsh.initialize()
 gmsh.model.add("t3")
 
 lc = 1e-2
-#------------ bottom
+# ------------ bottom
 gmsh.model.occ.addPoint(0, 0, 0, lc, 1)
 gmsh.model.occ.addPoint(-0.1, 0, 0, lc, 2)
 gmsh.model.occ.addPoint(0.1, 0, 0, lc, 3)
@@ -17,7 +17,7 @@ gmsh.model.occ.addCircleArc(3, 1, 2, 2)
 gmsh.model.occ.addCurveLoop([1, 2], 1)
 gmsh.model.occ.addPlaneSurface([1], 1)
 
-#------------ top
+# ------------ top
 gmsh.model.occ.addPoint(0, 0, 0.2, lc, 4)
 gmsh.model.occ.addPoint(-0.1, 0, 0.2, lc, 5)
 gmsh.model.occ.addPoint(0.1, 0, 0.2, lc, 6)
@@ -31,15 +31,17 @@ gmsh.model.occ.addPlaneSurface([2], 2)
 gmsh.model.occ.addLine(2, 5, 5)
 gmsh.model.occ.addLine(3, 6, 6)
 
+# ----------- 1 side
 gmsh.model.occ.addCurveLoop([1, 6, -3, -5], 3)
 gmsh.model.occ.addBSplineFilling(3, 3)
 
+# ------------ 2 side
 gmsh.model.occ.addCurveLoop([2, 5, -4, 6], 5)
 gmsh.model.occ.addBSplineFilling(5, 5)
 
+# adding volume
 l = gmsh.model.occ.addSurfaceLoop([1,2,3,5])
 gmsh.model.occ.addVolume([l])
-
 
 gmsh.model.occ.synchronize()
 

@@ -19,16 +19,25 @@ class CalcMesh:
 
         # Тут может быть скорость, но сейчас здесь нули
         self.velocity = np.zeros(shape=(3, int(len(nodes_coords) / 3)), dtype=np.double)
-        self.velocity[2] = np.power(30 + self.nodes[2, :], 1.1) + self.nodes[0, :]/10 - self.nodes[1, :]/10 
+        self.velocity[2] = np.power(30 + self.nodes[2, :], 1.03) + self.nodes[0, :]/30 - self.nodes[1, :]/30
 
         # Пройдём по элементам в модели gmsh
         self.tetrs = np.array([tetrs_points[0::4],tetrs_points[1::4],tetrs_points[2::4],tetrs_points[3::4]])
         self.tetrs -= 1
 
     # Метод отвечает за выполнение для всей сетки шага по времени величиной tau
-    def move(self, tau):
+    def move1(self, tau):
         # По сути метод просто двигает все точки c их текущими скоростями
-        self.nodes += self.velocity * tau
+        self.nodes += self.velocity/1 * tau
+    def move2(self, tau):
+        # По сути метод просто двигает все точки c их текущими скоростями
+        self.nodes += -self.velocity/3 * tau
+    def move3(self, tau):
+        # По сути метод просто двигает все точки c их текущими скоростями
+        self.nodes += -self.velocity/10 * tau
+        self.nodes[2,:] += 5
+        self.nodes[0,:] += 7
+        self.nodes[1,:] += -7
 
     # Метод отвечает за запись текущего состояния сетки в снапшот в формате VTK
     def snapshot(self, snap_number):
@@ -132,8 +141,17 @@ tau = 0.05
 mesh = CalcMesh(nodesCoord, tetrsNodesTags)
 mesh.snapshot(0)
 
-for i in range(1, 30):
-    mesh.move(tau)
+for i in range(1,30):
+    mesh.move2(tau)
+    mesh.snapshot(i)
+
+for i in range(30, 45):
+    mesh.move1(tau)
+    mesh.snapshot(i)
+
+
+for i in range(45, 130):
+    mesh.move3(tau)
     mesh.snapshot(i)
 
 gmsh.finalize()

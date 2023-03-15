@@ -1,7 +1,7 @@
 from fenics import *
 
 T = 2.0            # final time
-num_steps = 10     # number of time steps
+num_steps = 40    # number of time steps
 dt = T / num_steps # time step size
 alpha = 3          # parameter alpha
 beta = 1.2         # parameter beta

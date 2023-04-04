@@ -2,9 +2,9 @@ from fenics import *
 from mshr import *
 
 T = 0.05            # final time
-num_steps = 5000   # number of time steps
+num_steps = 100   # number of time steps
 dt = T / num_steps # time step size
-mu = 0.1     # dynamic viscosity
+mu = 0.001     # dynamic viscosity
 rho = 1            # density
 
 # Create mesh
@@ -21,11 +21,14 @@ V = VectorFunctionSpace(mesh, 'P', 2)
 Q = FunctionSpace(mesh, 'P', 1)
 
 # Define boundaries
+walls = '(on_boundary && x[0] > -1.9 && x[0] < 1.9  && x[1] < 0.6 && x[1] > -0.6) && (on_boundary && x[0] < 2 && x[0] > -0,5 && x[1] < -0.6 && x[1] > -0.30)'
+
+
+# outflow  = 'on_boundary && x[0] < 0.16 && x[0] > - 0.16 && x[1] < 0.16 && x[1] > 0.16'
+
 inflow1 = 'near(x[0], -2)'
 outflow = 'near(x[0], 2)'
 inflow2 = 'near(x[0], 2)'
-# outflow  = 'on_boundary && x[0] < 0.16 && x[0] > - 0.16 && x[1] < 0.16 && x[1] > 0.16'
-walls = '(on_boundary && x[0] > -2 && x[0] < 2  && x[1] < 0.6 && x[1] > -0.6) && (on_boundary && x[0] < 2 && x[0] > -0,5 && x[1] < -0.6 && x[1] > -0.30)'
 
 # Define inflow profile
 inflow_profile1 = ('4.0*1.5*x[1]*(2.5 - x[1]) / pow(0.5, 2)', '0')

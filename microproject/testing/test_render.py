@@ -28,9 +28,9 @@ def nearest_intersected_object(objects, ray_origin, ray_direction):
             nearest_object = objects[index]
     return nearest_object, min_distance
 
-width = 300
-height = 200
-max_depth = 5
+width = 1200
+height = 800
+max_depth = 6
 
 camera = np.array([0, 0, 1])
 ratio = float(width) / height

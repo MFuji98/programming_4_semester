@@ -14,6 +14,10 @@ https://youtu.be/yXm2M7KKGpo
 
 ### 3 lab
 in 3/first_step
-vtk files were about 10 Gb so...
-video on youtube: 
+didn't include vtk files because they were 10 Gb
+link to youtube video:
 https://youtu.be/CEqrwb3g-tw
+
+## Microproject
+in microproject/
+Trying to simulate difraction on soap bubbles
